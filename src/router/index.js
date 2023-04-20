@@ -1,33 +1,50 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from "vue-router";
 
 const router = createRouter({
     history: createWebHashHistory(),
-    // 映射关系： path -> component
     routes: [{
-            path: '/',
-            redirect: '/home',
+            path: "/",
+            redirect: "/home",
         },
         {
-            path: '/home',
+            path: "/home",
             component: () =>
-                import ("@/views/home/Home.vue")
+                import ("../views/home/index.vue"),
         },
         {
-            path: '/order',
+            path: "/favor",
             component: () =>
-                import ("@/views/order/Order.vue")
+                import ("../views/favor/index.vue"),
         },
         {
-            path: '/favor',
+            path: "/order",
             component: () =>
-                import ("@/views/favor/Favor.vue")
+                import ("../views/order/index.vue"),
         },
         {
-            path: '/message',
+            path: "/message",
             component: () =>
-                import ("@/views/message/Message.vue")
+                import ("../views/message/index.vue"),
+        },
+        {
+            path: "/city",
+            component: () =>
+                import ("../views/city/index.vue"),
+        },
+        {
+            path: "/detail/:id",
+            component: () =>
+                import ("../views/detail/index.vue"),
+        },
+        {
+            path: "/search",
+            component: () =>
+                import ("../views/search/index.vue"),
+            meta: {
+                hideTabBar: true,
+            },
         },
     ],
-})
+});
 
 export default router;

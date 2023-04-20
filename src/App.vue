@@ -1,28 +1,31 @@
-<script setup>
-</script>
-
 <template>
-  <div class="div">
-    <router-view/>
-    <tab-bar></tab-bar>
+  <div class="app">
+    <router-view v-slot="{ Component }">
+      <keep-alive>
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
+    <tab-bar v-show="!hideTabBar"></tab-bar>
+    <loading></loading>
   </div>
 </template>
 
 <script setup>
+import TabBar from "@/components/tab-bar/index.vue";
+import { watch, ref } from "vue";
+import { useRoute } from "vue-router";
+import Loading from "@/components/loading/index.vue";
+const route = useRoute();
+const hideTabBar = ref(false);
 
-  import TabBar from '@/components/tab-bar/TabBar.vue'
-  import { ref } from 'vue'
-
-  const rateValue  = ref(0);
-
-function rateIncrement() {
-  rateValue.value++;
-}
-
-
-
-
+// 监听路由路径的变化
+watch(
+  () => route.path,
+  () => {
+    // 是否隐藏底部的 tabbar
+    hideTabBar.value = !!route.meta.hideTabBar;
+  }
+);
 </script>
-<style scoped>
 
-</style>
+<style scoped></style>
